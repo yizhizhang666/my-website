@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>LinkClean · AI 无水印提取</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="bg-orb orb1"></div>
+  <div class="bg-orb orb2"></div>
+  <div class="bg-orb orb3"></div>
+
+  <!-- 顶部导航 -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-mark">
+          <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+            <path d="M11 2L13.5 8.5H20.5L14.8 12.8L17 19.5L11 15.3L5 19.5L7.2 12.8L1.5 8.5H8.5L11 2Z" fill="url(#star-grad)"/>
+            <defs><linearGradient id="star-grad" x1="1.5" y1="2" x2="20.5" y2="19.5" gradientUnits="userSpaceOnUse"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs>
+          </svg>
+        </div>
+        <span>LinkClean</span>
+      </div>
+      <nav class="nav">
+        <a href="#platforms">支持平台</a>
+        <a href="#how">使用方法</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-tag">
+      <span class="dot"></span>
+      AI 驱动 · 秒级处理 · 完全免费
+    </div>
+    <h1>粘贴链接<br/><span class="gradient-text">无水印下载</span></h1>
+    <p class="hero-desc">支持抖音、小红书、微博、B站等主流平台<br class="br-mobile"/>一键提取无水印视频与图片，高清保存</p>
+
+    <div class="input-card" id="main-input">
+      <div class="input-wrap">
+        <div class="input-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        </div>
+        <input type="text" id="linkInput" placeholder="粘贴抖音 / 小红书 / 微博 / B站 分享链接..." autocomplete="off" autocorrect="off" spellcheck="false"/>
+        <button class="btn-paste" id="pasteBtn" title="粘贴">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        </button>
+      </div>
+      <button class="btn-extract" id="extractBtn">
+        <span id="btnText">提取无水印内容</span>
+        <svg id="btnArrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <div class="btn-loader" id="btnLoader" style="display:none"><div class="loader-ring"></div></div>
+      </button>
+    </div>
+
+    <div class="result-card" id="resultCard" style="display:none">
+      <div class="result-header">
+        <div class="result-platform" id="resultPlatform"></div>
+        <div class="result-status"><span class="status-dot"></span>水印已去除</div>
+      </div>
+      <div class="result-media" id="resultMedia"></div>
+      <div class="result-info" id="resultInfo"></div>
+      <div class="result-actions">
+        <button class="btn-dl btn-dl-primary" id="dlVideoBtn" style="display:none">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          下载视频
+        </button>
+        <button class="btn-dl btn-dl-secondary" id="dlImgBtn" style="display:none">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          下载图片
+        </button>
+        <button class="btn-dl btn-dl-ghost" id="copyLinkBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          复制链接
+        </button>
+      </div>
+    </div>
+
+    <div class="error-card" id="errorCard" style="display:none">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span id="errorMsg"></span>
+    </div>
+
+    <div class="platform-badges">
+      <div class="badge-item"><span class="badge-icon" style="background:#fe2c55">抖</span>抖音</div>
+      <div class="badge-item"><span class="badge-icon" style="background:#ff2442">红</span>小红书</div>
+      <div class="badge-item"><span class="badge-icon" style="background:#e6162d">微</span>微博</div>
+      <div class="badge-item"><span class="badge-icon" style="background:#00a1d6">B</span>哔哩哔哩</div>
+      <div class="badge-item"><span class="badge-icon" style="background:#07c160">视</span>微信视频号</div>
+      <div class="badge-item"><span class="badge-icon" style="background:#ff6900">快</span>快手</div>
+    </div>
+  </section>
+
+  <!-- 支持平台 -->
+  <section class="platforms-section" id="platforms">
+    <div class="container">
+      <div class="section-label">全平台覆盖</div>
+      <h2>支持所有主流平台</h2>
+      <p class="section-sub">持续更新，覆盖国内外热门内容平台</p>
+      <div class="platforms-grid">
+        <div class="platform-card"><div class="pc-icon" style="background:linear-gradient(135deg,#fe2c55,#ff6b81)">抖</div><div class="pc-info"><h3>抖音</h3><p>视频 · 图集</p></div><div class="pc-tag">热门</div></div>
+        <div class="platform-card"><div class="pc-icon" style="background:linear-gradient(135deg,#ff2442,#ff6b6b)">红</div><div class="pc-info"><h3>小红书</h3><p>笔记 · 视频 · 图片</p></div><div class="pc-tag">热门</div></div>
+        <div class="platform-card"><div class="pc-icon" style="background:linear-gradient(135deg,#e6162d,#ff6b6b)">微</div><div class="pc-info"><h3>微博</h3><p>视频 · 图片</p></div></div>
+        <div class="platform-card"><div class="pc-icon" style="background:linear-gradient(135deg,#00a1d6,#4fc3f7)">B</div><div class="pc-info"><h3>哔哩哔哩</h3><p>视频 · 封面</p></div></div>
+        <div class="platform-card"><div class="pc-icon" style="background:linear-gradient(135deg,#07c160,#34d399)">视</div><div class="pc-info"><h3>微信视频号</h3><p>视频</p></div></div>
+        <div class="platform-card"><div class="pc-icon" style="background:linear-gradient(135deg,#ff6900,#fbbf24)">快</div><div class="pc-info"><h3>快手</h3><p>视频 · 图集</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 使用步骤 -->
+  <section class="how-section" id="how">
+    <div class="container">
+      <div class="section-label">简单三步</div>
+      <h2>30 秒完成提取</h2>
+      <p class="section-sub">无需安装任何软件，打开网页即可使用</p>
+      <div class="steps-row">
+        <div class="step-card"><div class="step-num">01</div><div class="step-icon">📋</div><h3>复制分享链接</h3><p>在抖音、小红书等 App 内点击分享，复制链接或分享文本</p></div>
+        <div class="step-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="step-card"><div class="step-num">02</div><div class="step-icon">🤖</div><h3>粘贴并提取</h3><p>将链接粘贴到输入框，点击提取，AI 自动解析并去除水印</p></div>
+        <div class="step-arrow"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="step-card"><div class="step-num">03</div><div class="step-icon">💾</div><h3>下载保存</h3><p>预览无水印内容，一键下载高清视频或图片到本地相册</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="faq-section" id="faq">
+    <div class="container">
+      <div class="section-label">常见问题</div>
+      <h2>你可能想知道</h2>
+      <div class="faq-grid">
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span>支持哪些类型的水印去除？</span><div class="faq-icon">+</div></button><div class="faq-a">支持平台 Logo 水印、用户名文字水印、时间戳水印、半透明遮罩水印等。AI 会自动识别水印类型并选择最优去除策略。</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span>处理后的视频画质如何？</span><div class="faq-icon">+</div></button><div class="faq-a">我们直接获取平台原始高清资源，不经过二次压缩。去水印处理仅针对水印区域，其余画面保持原始质量。</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span>我的数据安全吗？</span><div class="faq-icon">+</div></button><div class="faq-a">完全安全。我们不存储任何用户数据，链接解析和文件处理均在内存中完成，处理结束后立即清除，不留任何痕迹。</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span>为什么有时候提取失败？</span><div class="faq-icon">+</div></button><div class="faq-a">可能原因：① 内容已被作者删除或设为私密；② 链接格式不正确，请确保复制完整链接；③ 平台接口临时限制，稍后重试即可。</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span>有使用次数限制吗？</span><div class="faq-icon">+</div></button><div class="faq-a">完全免费，无限次使用！</div></div>
+        <div class="faq-item"><button class="faq-q" onclick="toggleFaq(this)"><span>可以商业使用吗？</span><div class="faq-icon">+</div></button><div class="faq-a">本工具仅供个人学习和研究使用。请尊重原创作者版权，不得将下载内容用于商业用途或二次传播。</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-brand">
+          <div class="logo"><div class="logo-mark"><svg width="18" height="18" viewBox="0 0 22 22" fill="none"><path d="M11 2L13.5 8.5H20.5L14.8 12.8L17 19.5L11 15.3L5 19.5L7.2 12.8L1.5 8.5H8.5L11 2Z" fill="url(#sg2)"/><defs><linearGradient id="sg2" x1="1.5" y1="2" x2="20.5" y2="19.5" gradientUnits="userSpaceOnUse"><stop stop-color="#a78bfa"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs></svg></div><span>LinkClean</span></div>
+          <p>AI 驱动的无水印内容提取工具</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h4>功能</h4><a href="#">视频提取</a><a href="#">图片提取</a></div>
+          <div class="footer-col"><h4>支持</h4><a href="#">使用教程</a><a href="#">常见问题</a></div>
+          <div class="footer-col"><h4>法律</h4><a href="#">隐私政策</a><a href="#">服务条款</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom"><p>© 2026 LinkClean · 仅供个人学习使用 · 请尊重原创版权</p></div>
+    </div>
+  </footer>
+
+  <script src="app-simple.js"></script>
+</body>
+</html>
